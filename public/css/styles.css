@@ -1,0 +1,23 @@
+.card-header h3 {
+  font-size: 1.3rem;
+  margin: 0.5rem 0;
+}
+
+.container {
+  max-width: 800px;
+}
+
+.nounderline {
+  text-decoration: none !important;
+}
+
+.user-id {
+  display: inline-block;
+  width: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-id:hover {
+  overflow: visible;
+}

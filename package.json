@@ -1,0 +1,33 @@
+{
+  "name": "ejercicio_mongodb_proyecto_base",
+  "description": "Hack Academy - Proyecto Base para ejercicio de MongoDB",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "seeders": "node seeders/runAllSeeders.js"
+  },
+  "keywords": [],
+  "author": "Hack Academy",
+  "license": "ISC",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.32.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "date-fns": "^2.30.0",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-jwt": "^8.4.1",
+    "formidable": "^2.1.1",
+    "jsonwebtoken": "^9.0.0",
+    "method-override": "^3.0.0",
+    "mongoose": "^7.1.0",
+    "slugify": "^1.6.6",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0"
+  }
+}
