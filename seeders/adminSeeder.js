@@ -4,9 +4,9 @@ module.exports = async () => {
   const admin = await new Admin({
     firstname: "name",
     lastname: "lastname",
-    username: "admin",
     password: "admin",
-    category_code: "100",
+    email: "admin@email.com",
+    phone: "099123123",
   });
 
   await admin.save();

@@ -40,26 +40,6 @@ const taskSchema = new Schema(
     acumPerfRatio: Number,
     costOverrunEst: Number,
     slug: String,
-    quantityProgress: [
-      {
-        date: { type: Date, required: true },
-        completedQty: Number,
-      },
-    ],
-    hoursProgress: [
-      {
-        date: { type: Date, required: true },
-        productiveHrs: [
-          {
-            type: {
-              type: String,
-              enum: ["normal", "extra", "night"],
-            },
-            hours: Number,
-          },
-        ],
-      },
-    ],
   },
   { timestamps: true },
 );

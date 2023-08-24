@@ -25,8 +25,6 @@ const tasks = tasksData.map((taskData) => {
     totalMeasuredQuantity: 0,
     totalWorkerHours: 0,
     slug: slug,
-    quantityProgress: [], // Agregar campos vacíos para el progreso de cantidad
-    hoursProgress: [], // Agregar campos vacíos para el progreso de horas
   };
 });
 

@@ -1,11 +1,9 @@
 const mongoose = require("mongoose");
 const Admin = require("../models/Admin");
-const CostLabourFactor = require("../models/CostLabourFactor");
 const Worker = require("../models/Worker");
 const Task = require("../models/Task");
-const Team = require("../models/Team");
-const TaskWorkEntry = require("../models/TaskWorkEntry");
-const DailyWorkReport = require("../models/DailyWorkReport");
+const TaskHrReport = require("../models/TaskHrReport");
+const TaskProgressReport = require("../models/TaskProgressReport");
 const runAllSeeders = require("../seeders/runAllSeeders");
 
 async function showHome(req, res) {
@@ -24,12 +22,10 @@ async function showAboutUs(req, res) {
 async function reset(req, res) {
   const collections = [
     Admin.collection,
-    CostLabourFactor.collection,
     Worker.collection,
     Task.collection,
-    Team.collection,
-    TaskWorkEntry.collection,
-    DailyWorkReport.collection,
+    TaskHrReport.collection,
+    TaskProgressReport.collection,
   ];
 
   try {
