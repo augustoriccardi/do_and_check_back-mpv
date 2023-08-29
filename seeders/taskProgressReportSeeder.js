@@ -14,7 +14,7 @@ module.exports = async () => {
     for (const taskHrReport of taskHrReports) {
       const task = await Task.findById(taskHrReport.task);
 
-      const perfFluctuationCoef = Math.random() * 0.5 + 1;
+      const perfFluctuationCoef = Math.random() * (1.7 - 0.5) + 0.5;
 
       // Calcular el avance de tarea basado en budgetPerfRatio y taskHrReport.hours
       const progressQty = taskHrReport.hours / task.budgetPerfRatio / perfFluctuationCoef;
