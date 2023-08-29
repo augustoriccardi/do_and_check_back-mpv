@@ -7,44 +7,43 @@ faker.locale = "es";
 
 module.exports = async () => {
   try {
-    const tasks = await Task.find();
-    const workers = await Worker.find();
-    const numDailyHoursToCreate = 15;
+    const allTasks = await Task.find();
+    const numTaskHrReportToCreate = 5;
     let taskHrReports = [];
 
-    // Crear un arreglo de índices aleatorios únicos para las tareas
-    const randomTaskIndices = Array.from({ length: numDailyHoursToCreate }, (_, index) => index);
-    for (let index = randomTaskIndices.length - 1; index > 0; index--) {
-      const randomIndex = Math.floor(Math.random() * (index + 1));
-      [randomTaskIndices[index], randomTaskIndices[randomIndex]] = [
-        randomTaskIndices[randomIndex],
-        randomTaskIndices[index],
-      ];
-    }
+    // Seleccionar aleatoriamente 15 tareas
+    const randomTasks = faker.helpers.arrayElements(allTasks, numTaskHrReportToCreate);
 
-    for (let index = 0; index < numDailyHoursToCreate; index++) {
-      const randomTaskIndex = randomTaskIndices[index];
-      const task = randomTaskIndex < tasks.length ? tasks[randomTaskIndex] : null;
+    const workers = await Worker.find();
 
-      const newTaskHrReport = new TaskHrReport({
-        date: faker.date.past(),
-        worker: workers[Math.floor(Math.random() * workers.length)],
-        task: task,
-        hours: Math.floor(Math.random() * 8) + 1,
-      });
-      taskHrReports.push(newTaskHrReport);
+    for (const task of randomTasks) {
+      for (let reportIndex = 0; reportIndex < 5; reportIndex++) {
+        const startDate = new Date(`2023-01-01`);
+        const endDate = new Date(`2023-12-31`);
 
-      // Obtener el documento actualizado de la base de datos
-      const taskToUpdate = await Task.findById(task._id); // Cambiar a _id
+        const newTaskHrReport = new TaskHrReport({
+          date: faker.date.between(startDate, endDate),
+          worker: workers[Math.floor(Math.random() * workers.length)],
+          task: task,
+          hours: Math.floor(Math.random() * 8) + 1,
+        });
 
-      // Calcular productiveHoursTotal (supongo que es el total de horas productivas en el informe)
-      const productiveHoursTotal = newTaskHrReport.hours;
+        taskHrReports.push(newTaskHrReport);
 
-      // Actualizar los campos relevantes en el modelo Task
-      taskToUpdate.totalWorkerHours += productiveHoursTotal;
+        // Realiza los cálculos y actualizaciones necesarias en el modelo Task
+        // const taskToUpdate = await Task.findById(task._id);
 
-      // Guardar el documento actualizado en la base de datos
-      await taskToUpdate.save();
+        // Calcular productiveHoursTotal (supongo que es el total de horas productivas en el informe)
+        // const productiveHoursTotal = newTaskHrReport.hours;
+
+        // Actualizar los campos relevantes en el modelo Task
+        // taskToUpdate.totalWorkerHours += productiveHoursTotal;
+
+        // Guardar el documento actualizado en la base de datos
+        // await taskToUpdate.save();
+
+        //---------------------------------------------------------------------------------------------//
+      }
     }
 
     await TaskHrReport.create(taskHrReports);

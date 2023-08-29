@@ -5,7 +5,7 @@ const Admin = require("../models/Admin");
 async function index(req, res) {
   try {
     const tasks = await Task.find();
-    return res.json({ tasks });
+    return res.json(tasks);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error." });
@@ -18,7 +18,7 @@ async function show(req, res) {
     if (!task) {
       return res.status(404).json({ error: "Task not found." });
     }
-    return res.json({ task });
+    return res.json(task);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error." });

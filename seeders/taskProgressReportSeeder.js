@@ -14,23 +14,28 @@ module.exports = async () => {
     for (const taskHrReport of taskHrReports) {
       const task = await Task.findById(taskHrReport.task);
 
-      // Generar un coeficiente de fluctuación entre 1 y 1.5
       const perfFluctuationCoef = Math.random() * 0.5 + 1;
 
       // Calcular el avance de tarea basado en budgetPerfRatio y taskHrReport.hours
-      const progressQty = taskHrReport.hours / (task.budgetPerfRatio * perfFluctuationCoef);
-      task.totalMeasuredQuantity += progressQty;
+      const progressQty = taskHrReport.hours / task.budgetPerfRatio / perfFluctuationCoef;
+
+      // //ESTO NO SE VA A GUARDAR EN TASK SINO SE VA A CALCULAR CUANDO SE NECESITO CONSULTANDO A LA BD//
+      // Actualizar el valor de las cantidades totales avanzadas
+      // task.totalMeasuredQuantity += progressQty;
 
       // Calcular y actualizar acumPerfRatio y costOverrunEst
-      task.acumPerfRatio = task.totalWorkerHours / task.totalMeasuredQuantity;
-      task.costOverrunEst = (task.acumPerfRatio - task.budgetPerfRatio) * task.totalLabourCost;
+      // task.acumPerfRatio = task.totalWorkerHours / task.totalMeasuredQuantity;
+      // task.costOverrunEst = (task.acumPerfRatio - task.budgetPerfRatio) * task.totalLabourCost;
+
+      // //---------------------------------------------------------------------------------------------//
 
       // Guardar la tarea actualizada en la base de datos
       await task.save();
 
       // Crear un nuevo informe de progreso basado en el avance
+
       const newTaskProgressReport = new TaskProgressReport({
-        date: faker.date.past(),
+        date: taskHrReport.date,
         task: task._id,
         progressQty: progressQty,
       });

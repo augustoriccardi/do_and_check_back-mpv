@@ -20,10 +20,7 @@ const tasks = tasksData.map((taskData) => {
 
   return {
     ...taskData, // Utilizar el spread operator para copiar las propiedades originales
-    acumPerfRatio: 0,
-    costOverrunEst: 0,
-    totalMeasuredQuantity: 0,
-    totalWorkerHours: 0,
+    budgetPerfRatio: taskData.totalBudgetHrs / taskData.totalBudgetQty,
     slug: slug,
   };
 });
