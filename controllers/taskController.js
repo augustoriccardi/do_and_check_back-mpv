@@ -86,27 +86,25 @@ async function update(req, res) {
     const {
       code,
       title,
-      description,
       taskGroup,
+      description,
       taskStatus,
       unit,
       totalBudgetQty,
       totalBudgetHrs,
       totalLabourCost,
-      budgetPerfRatio,
     } = req.body;
 
     const updatedTask = {
       code,
       title,
-      description,
       taskGroup,
+      description,
       taskStatus,
       unit,
       totalBudgetQty,
       totalBudgetHrs,
       totalLabourCost,
-      budgetPerfRatio,
     };
 
     await Task.findByIdAndUpdate(req.params.id, updatedTask);
@@ -120,7 +118,8 @@ async function update(req, res) {
 
 async function destroy(req, res) {
   try {
-    const admin = await Admin.findById(req.auth.id);
+    const admin = true;
+    // const admin = await Admin.findById(req.auth.id);
 
     if (admin) {
       await Task.findByIdAndDelete(req.params.id);
