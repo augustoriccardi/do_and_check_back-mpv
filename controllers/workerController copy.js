@@ -102,7 +102,7 @@ async function store(req, res) {
         return res.status(500).json({ error: "Error uploading the avatar image." });
       }
 
-      const newWorker = new Worker({
+      const updatedWorker = new Worker({
         firstname,
         lastname,
         category,
@@ -110,8 +110,8 @@ async function store(req, res) {
       });
 
       try {
-        await newWorker.save();
-        return res.status(201).json(newWorker);
+        await updatedWorker.save();
+        return res.status(201).json(updatedWorker);
       } catch (saveError) {
         console.error(saveError);
         return res.status(500).json({ error: "Error saving the new worker." });
@@ -131,26 +131,19 @@ async function update(req, res) {
     });
 
     form.parse(req, async (err, fields, files) => {
-      console.log(files);
-
       if (err) {
         return res.status(400).json({ error: "Error parsing form data." });
       }
 
       const { firstname, lastname, category } = fields;
+
       if (!firstname || !lastname || !category || !files.avatar) {
         return res.status(400).json({ error: "Missing required fields." });
       }
 
-      // const existingWorker = await Worker.findOne({ firstname: firstname, lastname: lastname });
-
-      // // if (existingWorker) {
-      // //   return res.status(400).json({ error: "Worker with this email already exists." });
-      // // }
-
       const ext = path.extname(files.avatar.filepath);
       const newFileName = `image_${Date.now()}${ext}`;
-
+      console.log(files.avatar.filepath);
       const { data, error } = await supabase.storage
         .from("images")
         .upload(newFileName, fs.createReadStream(files.avatar.filepath), {
@@ -164,18 +157,20 @@ async function update(req, res) {
         return res.status(500).json({ error: "Error uploading the avatar image." });
       }
 
-      const updatedWorker = {
-        firstname,
-        lastname,
-        category,
-        avatar: newFileName,
-      };
-
       try {
-        await Worker.findOneAndUpdate({ _id: req.params.id }, updatedWorker);
-        return res.json("Worker has been updated");
-      } catch (error) {
-        return res.json("Failed updating requested worker");
+        // Assuming you have an ID for the worker you want to update
+        const workerId = req.params.id; // Adjust the parameter name as needed
+
+        // Update the worker in the database by ID
+        await Worker.findByIdAndUpdate(workerId, updatedWorker);
+
+        // Optionally, you can retrieve the updated worker from the database and send it in the response
+        const updatedWorkerFromDB = await Worker.findById(workerId);
+
+        return res.status(200).json(updatedWorkerFromDB); // Return the updated worker
+      } catch (updateError) {
+        console.error(updateError);
+        return res.status(500).json({ error: "Error updating the worker." });
       }
     });
   } catch (error) {

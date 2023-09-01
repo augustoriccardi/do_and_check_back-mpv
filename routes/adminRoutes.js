@@ -13,6 +13,7 @@ router.delete("/:id", adminController.destroy);
 
 router.delete("/worker/:id", workerController.destroy);
 router.post("/worker", workerController.store);
+router.patch("/worker/:id", workerController.update);
 
 router.post("/task", taskController.store);
 router.patch("/task/:id", taskController.update);
