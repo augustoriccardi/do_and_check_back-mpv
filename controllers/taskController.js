@@ -64,6 +64,7 @@ async function store(req, res) {
     }),
     quantityProgress: [],
     hoursProgress: [],
+    budgetPerfRatio: totalBudgetHrs / totalBudgetQty,
   };
 
   try {
@@ -105,6 +106,7 @@ async function update(req, res) {
       totalBudgetQty,
       totalBudgetHrs,
       totalLabourCost,
+      budgetPerfRatio: totalBudgetHrs / totalBudgetQty,
     };
 
     await Task.findByIdAndUpdate(req.params.id, updatedTask);
