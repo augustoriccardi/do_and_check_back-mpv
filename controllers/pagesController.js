@@ -47,7 +47,8 @@ async function reset(req, res) {
     // Volver a ejecutar los seeders
     await runAllSeeders();
 
-    return res.json("Se vació la base de datos");
+    // Enviar una respuesta exitosa al frontend
+    res.status(200).json({ message: "Seeders completados con éxito" });
   } catch (error) {
     console.error("Error al reiniciar la base de datos:", error);
     return res.status(500).json("Error al reiniciar la base de datos");
@@ -57,9 +58,6 @@ async function reset(req, res) {
 async function show404(req, res) {
   res.status(404).render("pages/404");
 }
-
-// Otros handlers...
-// ...
 
 module.exports = {
   showHome,

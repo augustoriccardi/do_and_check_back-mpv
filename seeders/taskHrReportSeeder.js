@@ -11,7 +11,6 @@ module.exports = async () => {
     const numTaskHrReportToCreate = 5;
     let taskHrReports = [];
 
-    // Seleccionar aleatoriamente 15 tareas
     const randomTasks = faker.helpers.arrayElements(allTasks, numTaskHrReportToCreate);
 
     const workers = await Worker.find();
@@ -29,20 +28,6 @@ module.exports = async () => {
         });
 
         taskHrReports.push(newTaskHrReport);
-
-        // Realiza los cálculos y actualizaciones necesarias en el modelo Task
-        // const taskToUpdate = await Task.findById(task._id);
-
-        // Calcular productiveHoursTotal (supongo que es el total de horas productivas en el informe)
-        // const productiveHoursTotal = newTaskHrReport.hours;
-
-        // Actualizar los campos relevantes en el modelo Task
-        // taskToUpdate.totalWorkerHours += productiveHoursTotal;
-
-        // Guardar el documento actualizado en la base de datos
-        // await taskToUpdate.save();
-
-        //---------------------------------------------------------------------------------------------//
       }
     }
 

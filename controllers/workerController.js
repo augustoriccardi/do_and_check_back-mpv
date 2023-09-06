@@ -131,8 +131,6 @@ async function update(req, res) {
     });
 
     form.parse(req, async (err, fields, files) => {
-      console.log(files);
-
       if (err) {
         return res.status(400).json({ error: "Error parsing form data." });
       }

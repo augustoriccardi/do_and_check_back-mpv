@@ -8,7 +8,6 @@ async function runAllSeeders() {
   await require("./taskProgressReportSeeder")();
 
   console.log("[Database] ¡Los datos de prueba fueron insertados!");
-  process.exit();
 }
 
 module.exports = runAllSeeders;

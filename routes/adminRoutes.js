@@ -5,7 +5,9 @@ const workerController = require("../controllers/workerController");
 const taskController = require("../controllers/taskController");
 const taskHrReportController = require("../controllers/taskHrReportController");
 const taskProgressReportController = require("../controllers/taskProgressReportController");
+const pagesController = require("../controllers/pagesController");
 
+router.patch("/reset", pagesController.reset);
 router.get("/", adminController.index);
 router.post("/", adminController.store);
 router.patch("/:id", adminController.update);
@@ -20,7 +22,9 @@ router.patch("/task/:id", taskController.update);
 router.delete("/task/:id", taskController.destroy);
 
 router.get("/task-hr-reports", taskHrReportController.index);
+router.post("/task-hr-reports", taskHrReportController.store);
 
 router.get("/task-progress-reports", taskProgressReportController.index);
+router.post("/task-progress-reports", taskProgressReportController.store);
 
 module.exports = router;

@@ -18,7 +18,29 @@ async function show(req, res) {}
 async function create(req, res) {}
 
 // Store a newly created resource in storage.
-async function store(req, res) {}
+async function store(req, res) {
+  try {
+    const workersHrsReport = req.body;
+    const taskHrReport = [];
+
+    for (const workerHrsReport of workersHrsReport) {
+      taskHrReport.push({
+        date: workerHrsReport.date,
+        worker: workerHrsReport.workerId,
+        task: workerHrsReport.taskId,
+        hours: workerHrsReport.hours,
+      });
+    }
+
+    await TaskHrReport.insertMany(taskHrReport);
+
+    // Envía una respuesta de éxito si todo salió bien
+    return res.json({ success: true, message: "New Task Hour Report saved." });
+  } catch (error) {
+    // Maneja el error y envía una respuesta de error
+    return res.status(500).json({ success: false, error: "Error al procesar la solicitud." });
+  }
+}
 
 // Show the form for editing the specified resource.
 async function edit(req, res) {}

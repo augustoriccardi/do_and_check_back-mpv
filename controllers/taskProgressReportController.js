@@ -18,7 +18,19 @@ async function show(req, res) {}
 async function create(req, res) {}
 
 // Store a newly created resource in storage.
-async function store(req, res) {}
+async function store(req, res) {
+  try {
+    const taskProgressReport = req.body;
+
+    await TaskProgressReport.create(taskProgressReport);
+
+    // Envía una respuesta de éxito si todo salió bien
+    return res.json({ success: true, message: "New Task Progress Report saved." });
+  } catch (error) {
+    // Maneja el error y envía una respuesta de error
+    return res.status(501).json({ success: false, error: "Error al procesar la solicitud." });
+  }
+}
 
 // Show the form for editing the specified resource.
 async function edit(req, res) {}

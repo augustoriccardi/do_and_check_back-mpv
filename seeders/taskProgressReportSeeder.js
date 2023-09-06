@@ -19,18 +19,8 @@ module.exports = async () => {
       // Calcular el avance de tarea basado en budgetPerfRatio y taskHrReport.hours
       const progressQty = taskHrReport.hours / task.budgetPerfRatio / perfFluctuationCoef;
 
-      // //ESTO NO SE VA A GUARDAR EN TASK SINO SE VA A CALCULAR CUANDO SE NECESITO CONSULTANDO A LA BD//
-      // Actualizar el valor de las cantidades totales avanzadas
-      // task.totalMeasuredQuantity += progressQty;
-
-      // Calcular y actualizar acumPerfRatio y costOverrunEst
-      // task.acumPerfRatio = task.totalWorkerHours / task.totalMeasuredQuantity;
-      // task.costOverrunEst = (task.acumPerfRatio - task.budgetPerfRatio) * task.totalLabourCost;
-
-      // //---------------------------------------------------------------------------------------------//
-
-      // Guardar la tarea actualizada en la base de datos
-      await task.save();
+      // // Guardar la tarea actualizada en la base de datos
+      // await task.save();
 
       // Crear un nuevo informe de progreso basado en el avance
 
@@ -44,7 +34,7 @@ module.exports = async () => {
       await newTaskProgressReport.save();
 
       // Modificar taskStatus si tiene horas o cantidades
-      if (task.totalWorkerHours > 0 || task.totalMeasuredQuantity > 0) {
+      if (progressQty > 0) {
         task.taskStatus = "pending";
         await task.save();
       }
