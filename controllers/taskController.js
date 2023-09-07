@@ -120,15 +120,8 @@ async function update(req, res) {
 
 async function destroy(req, res) {
   try {
-    const admin = true;
-    // const admin = await Admin.findById(req.auth.id);
-
-    if (admin) {
-      await Task.findByIdAndDelete(req.params.id);
-      return res.json("Task has been deleted");
-    } else {
-      return res.json("You are not an administrator");
-    }
+    await Task.findByIdAndDelete(req.params.id);
+    return res.json("Task has been deleted");
   } catch (error) {
     return res.json("Error deleting the requested task");
   }

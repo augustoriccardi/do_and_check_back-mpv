@@ -3,7 +3,7 @@ const TaskHrReport = require("../models/TaskHrReport");
 // Display a listing of the resource.
 async function index(req, res) {
   try {
-    const taskHrReports = await TaskHrReport.find();
+    const taskHrReports = await TaskHrReport.find().populate("worker").populate("task");
     return res.json(taskHrReports);
   } catch (error) {
     console.error(error);
@@ -49,10 +49,15 @@ async function edit(req, res) {}
 async function update(req, res) {}
 
 // Remove the specified resource from storage.
-async function destroy(req, res) {}
-
-// Otros handlers...
-// ...
+async function destroy(req, res) {
+  try {
+    console.log(req.params.id);
+    await TaskHrReport.findByIdAndDelete(req.params.id);
+    return res.json("Task Hour Report has been deleted");
+  } catch (error) {
+    return res.json("Error deleting the requested Task Hour Report");
+  }
+}
 
 module.exports = {
   index,

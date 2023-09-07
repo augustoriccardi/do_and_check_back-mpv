@@ -9,6 +9,10 @@ const taskProgressReportSchema = new Schema(
   { timestamps: true },
 );
 
+taskProgressReportSchema.set("toJSON", {
+  virtuals: true,
+});
+
 const TaskProgressReport = mongoose.model("TaskProgressReport", taskProgressReportSchema);
 
 module.exports = TaskProgressReport;

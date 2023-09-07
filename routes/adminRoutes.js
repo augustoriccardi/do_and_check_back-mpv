@@ -23,6 +23,7 @@ router.delete("/task/:id", taskController.destroy);
 
 router.get("/task-hr-reports", taskHrReportController.index);
 router.post("/task-hr-reports", taskHrReportController.store);
+router.delete("/task-hr-reports/:id", taskHrReportController.destroy);
 
 router.get("/task-progress-reports", taskProgressReportController.index);
 router.post("/task-progress-reports", taskProgressReportController.store);

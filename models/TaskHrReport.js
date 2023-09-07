@@ -10,6 +10,10 @@ const taskHrReportSchema = new Schema(
   { timestamps: true },
 );
 
+taskHrReportSchema.set("toJSON", {
+  virtuals: true,
+});
+
 const TaskHrReport = mongoose.model("TaskHrReport", taskHrReportSchema);
 
 module.exports = TaskHrReport;

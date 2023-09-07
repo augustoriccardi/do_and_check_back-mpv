@@ -3,7 +3,7 @@ const TaskProgressReport = require("../models/TaskProgressReport");
 // Display a listing of the resource.
 async function index(req, res) {
   try {
-    const TaskProgressReports = await TaskProgressReport.find();
+    const TaskProgressReports = await TaskProgressReport.find().populate("task");
     return res.json(TaskProgressReports);
   } catch (error) {
     console.error(error);
