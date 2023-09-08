@@ -18,7 +18,7 @@ module.exports = async () => {
     for (const task of randomTasks) {
       for (let reportIndex = 0; reportIndex < 5; reportIndex++) {
         const startDate = new Date(`2023-01-01`);
-        const endDate = new Date(`2023-12-31`);
+        const endDate = new Date();
 
         const newTaskHrReport = new TaskHrReport({
           date: faker.date.between(startDate, endDate),

@@ -1,6 +1,6 @@
 const { mongoose, Schema } = require("../db");
 
-const taskProgressReportSchema = new Schema(
+const TaskQtyReportSchema = new Schema(
   {
     date: { type: Date, required: true },
     task: { type: Schema.Types.ObjectId, ref: "Task", required: true },
@@ -9,10 +9,10 @@ const taskProgressReportSchema = new Schema(
   { timestamps: true },
 );
 
-taskProgressReportSchema.set("toJSON", {
+TaskQtyReportSchema.set("toJSON", {
   virtuals: true,
 });
 
-const TaskProgressReport = mongoose.model("TaskProgressReport", taskProgressReportSchema);
+const TaskQtyReport = mongoose.model("TaskQtyReport", TaskQtyReportSchema);
 
-module.exports = TaskProgressReport;
+module.exports = TaskQtyReport;

@@ -1,10 +1,10 @@
-const TaskHrReport = require("../models/TaskHrReport");
+const TaskQtyReport = require("../models/TaskQtyReport");
 
 // Display a listing of the resource.
 async function index(req, res) {
   try {
-    const taskHrReports = await TaskHrReport.find().populate("worker").populate("task");
-    return res.json(taskHrReports);
+    const TaskQtyReports = await TaskQtyReport.find().populate("task");
+    return res.json(TaskQtyReports);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error." });
@@ -20,25 +20,17 @@ async function create(req, res) {}
 // Store a newly created resource in storage.
 async function store(req, res) {
   try {
-    const workersHrsReport = req.body;
-    const taskHrReport = [];
+    const taskQtyReportData = req.body;
 
-    for (const workerHrsReport of workersHrsReport) {
-      taskHrReport.push({
-        date: workerHrsReport.date,
-        worker: workerHrsReport.workerId,
-        task: workerHrsReport.taskId,
-        hours: workerHrsReport.hours,
-      });
-    }
-
-    await TaskHrReport.insertMany(taskHrReport);
+    // Crea un nuevo informe de cantidad de tareas utilizando el modelo TaskQtyReport
+    const newTaskQtyReport = new TaskQtyReport(taskQtyReportData);
+    await newTaskQtyReport.save();
 
     // Envía una respuesta de éxito si todo salió bien
-    return res.json({ success: true, message: "New Task Hour Report saved." });
+    return res.json({ success: true, message: "New Task Quantity Report saved." });
   } catch (error) {
     // Maneja el error y envía una respuesta de error
-    return res.status(500).json({ success: false, error: "Error al procesar la solicitud." });
+    return res.status(501).json({ success: false, error: "Error al procesar la solicitud." });
   }
 }
 
@@ -48,12 +40,12 @@ async function edit(req, res) {}
 // Update the specified resource in storage.
 async function update(req, res) {
   try {
-    const workersHrsReport = req.body;
-
-    await TaskHrReport.findByIdAndUpdate(req.params.id, workersHrsReport);
+    const taskQtyReportToUpdate = req.body;
+    console.log(taskQtyReportToUpdate);
+    await TaskQtyReport.findByIdAndUpdate(req.params.id, taskQtyReportToUpdate);
 
     // Envía una respuesta de éxito si todo salió bien
-    return res.json({ success: true, message: "New Task Hour Report saved." });
+    return res.json({ success: true, message: "New Task Quantity Report saved." });
   } catch (error) {
     // Maneja el error y envía una respuesta de error
     return res.status(500).json({ success: false, error: "Error al procesar la solicitud." });
@@ -63,10 +55,10 @@ async function update(req, res) {
 // Remove the specified resource from storage.
 async function destroy(req, res) {
   try {
-    await TaskHrReport.findByIdAndDelete(req.params.id);
-    return res.json("Task Hour Report has been deleted");
+    await TaskQtyReport.findByIdAndDelete(req.params.id);
+    return res.json("Task Quantity Report has been deleted");
   } catch (error) {
-    return res.json("Error deleting the requested Task Hour Report");
+    return res.json("Error deleting the requested Task Quantity Report");
   }
 }
 

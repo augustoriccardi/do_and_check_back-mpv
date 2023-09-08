@@ -1,7 +1,7 @@
 const Worker = require("../models/Worker");
 const Task = require("../models/Task");
 const TaskHrReport = require("../models/TaskHrReport");
-const TaskProgressReport = require("../models/TaskProgressReport");
+const TaskQtyReport = require("../models/TaskQtyReport");
 
 const { faker } = require("@faker-js/faker");
 
@@ -17,21 +17,22 @@ module.exports = async () => {
       const perfFluctuationCoef = Math.random() * (1.7 - 0.5) + 0.5;
 
       // Calcular el avance de tarea basado en budgetPerfRatio y taskHrReport.hours
-      const progressQty = taskHrReport.hours / task.budgetPerfRatio / perfFluctuationCoef;
+      const progressQty =
+        Math.floor(taskHrReport.hours / task.budgetPerfRatio / perfFluctuationCoef) + 1;
 
       // // Guardar la tarea actualizada en la base de datos
       // await task.save();
 
       // Crear un nuevo informe de progreso basado en el avance
 
-      const newTaskProgressReport = new TaskProgressReport({
+      const newTaskQtyReport = new TaskQtyReport({
         date: taskHrReport.date,
         task: task._id,
         progressQty: progressQty,
       });
 
       // Guardar el nuevo informe de progreso en la base de datos
-      await newTaskProgressReport.save();
+      await newTaskQtyReport.save();
 
       // Modificar taskStatus si tiene horas o cantidades
       if (progressQty > 0) {
@@ -40,7 +41,7 @@ module.exports = async () => {
       }
     }
 
-    console.log("[Database] Se corrió el seeder de task progress reports");
+    console.log("[Database] Se corrió el seeder de task quantity reports");
   } catch (error) {
     console.error("Error:", error);
   }

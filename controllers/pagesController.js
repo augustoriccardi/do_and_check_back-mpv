@@ -3,7 +3,7 @@ const Admin = require("../models/Admin");
 const Worker = require("../models/Worker");
 const Task = require("../models/Task");
 const TaskHrReport = require("../models/TaskHrReport");
-const TaskProgressReport = require("../models/TaskProgressReport");
+const TaskQtyReport = require("../models/TaskQtyReport");
 const runAllSeeders = require("../seeders/runAllSeeders");
 
 async function showHome(req, res) {
@@ -25,7 +25,7 @@ async function reset(req, res) {
     Worker.collection,
     Task.collection,
     TaskHrReport.collection,
-    TaskProgressReport.collection,
+    TaskQtyReport.collection,
   ];
 
   try {

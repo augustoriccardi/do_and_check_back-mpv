@@ -5,7 +5,7 @@ async function runAllSeeders() {
   await require("./taskSeeder")();
   await require("./workerSeeder")();
   await require("./taskHrReportSeeder")();
-  await require("./taskProgressReportSeeder")();
+  await require("./TaskQtyReportSeeder")();
 
   console.log("[Database] ¡Los datos de prueba fueron insertados!");
 }
