@@ -3,7 +3,7 @@ const TaskQtyReport = require("../models/TaskQtyReport");
 // Display a listing of the resource.
 async function index(req, res) {
   try {
-    const TaskQtyReports = await TaskQtyReport.find().populate("task");
+    const TaskQtyReports = await TaskQtyReport.find().sort({ date: -1 }).populate("task");
     return res.json(TaskQtyReports);
   } catch (error) {
     console.error(error);
