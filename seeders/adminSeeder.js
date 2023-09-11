@@ -2,8 +2,8 @@ const Admin = require("../models/Admin");
 
 module.exports = async () => {
   const admin = await new Admin({
-    firstname: "name",
-    lastname: "lastname",
+    firstname: "Name",
+    lastname: "Lastname",
     password: "admin",
     email: "admin@email.com",
     phone: "099123123",

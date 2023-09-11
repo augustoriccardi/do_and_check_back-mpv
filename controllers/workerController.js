@@ -83,7 +83,7 @@ async function store(req, res) {
       if (existingWorker) {
         return res
           .status(400)
-          .json({ error: "Worker with this firstname and lastname already exists." });
+          .json({ error: "Worker with this firstname and/or lastname already exists." });
       }
 
       const ext = path.extname(files.avatar.filepath);
