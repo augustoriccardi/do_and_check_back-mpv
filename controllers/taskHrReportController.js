@@ -3,7 +3,10 @@ const TaskHrReport = require("../models/TaskHrReport");
 // Display a listing of the resource.
 async function index(req, res) {
   try {
-    const taskHrReports = await TaskHrReport.find().populate("worker").populate("task");
+    const taskHrReports = await TaskHrReport.find()
+      .sort({ date: -1 })
+      .populate("worker")
+      .populate("task");
     return res.json(taskHrReports);
   } catch (error) {
     console.error(error);
