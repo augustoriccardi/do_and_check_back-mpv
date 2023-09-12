@@ -1,6 +1,5 @@
 const Worker = require("../models/Worker");
-const Admin = require("../models/Admin");
-const bcrypt = require("bcryptjs");
+const TaskHrReport = require("../models/TaskHrReport");
 const formidable = require("formidable");
 const fs = require("fs");
 const path = require("path");
@@ -184,14 +183,9 @@ async function update(req, res) {
 
 async function destroy(req, res) {
   try {
-    const admin = await Admin.findById(req.auth.id);
-
-    if (admin) {
-      await Worker.findByIdAndDelete(req.params.id);
-      return res.json("Worker has been deleted");
-    } else {
-      return res.json("You are not an administrator");
-    }
+    await TaskHrReport.deleteMany({ worker: req.params.id });
+    await Worker.findByIdAndDelete(req.params.id);
+    return res.json("Worker has been deleted");
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Error deleting the requested worker." });

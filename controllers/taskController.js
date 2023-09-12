@@ -1,6 +1,7 @@
 const Task = require("../models/Task");
+const TaskHrReport = require("../models/TaskHrReport");
+const TaskQtyReport = require("../models/TaskQtyReport");
 const slugify = require("slugify");
-const Admin = require("../models/Admin");
 
 async function index(req, res) {
   try {
@@ -120,6 +121,8 @@ async function update(req, res) {
 
 async function destroy(req, res) {
   try {
+    await TaskHrReport.deleteMany({ task: req.params.id });
+    await TaskQtyReport.deleteMany({ task: req.params.id });
     await Task.findByIdAndDelete(req.params.id);
     return res.json("Task has been deleted");
   } catch (error) {
