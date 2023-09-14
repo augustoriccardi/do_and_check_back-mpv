@@ -22,6 +22,10 @@ async function store(req, res) {
   try {
     const taskQtyReportData = req.body;
 
+    if (!taskQtyReportData.date || !taskQtyReportData.task || !taskQtyReportData.progressQty) {
+      return res.status(400).json({ error: "Missing required fields." });
+    }
+
     // Crea un nuevo informe de cantidad de tareas utilizando el modelo TaskQtyReport
     const newTaskQtyReport = new TaskQtyReport(taskQtyReportData);
     await newTaskQtyReport.save();
@@ -30,7 +34,7 @@ async function store(req, res) {
     return res.json({ success: true, message: "New Task Quantity Report saved." });
   } catch (error) {
     // Maneja el error y envía una respuesta de error
-    return res.status(501).json({ success: false, error: "Error al procesar la solicitud." });
+    return res.status(501).json({ success: false, error: "Error processing the request." });
   }
 }
 
@@ -41,7 +45,15 @@ async function edit(req, res) {}
 async function update(req, res) {
   try {
     const taskQtyReportToUpdate = req.body;
-    console.log(taskQtyReportToUpdate);
+
+    if (
+      !taskQtyReportToUpdate.date ||
+      !taskQtyReportToUpdate.task ||
+      !taskQtyReportToUpdate.progressQty
+    ) {
+      return res.status(400).json({ error: "Missing required fields." });
+    }
+
     await TaskQtyReport.findByIdAndUpdate(req.params.id, taskQtyReportToUpdate);
 
     // Envía una respuesta de éxito si todo salió bien

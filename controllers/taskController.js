@@ -97,6 +97,20 @@ async function update(req, res) {
       totalLabourCost,
     } = req.body;
 
+    if (
+      !code ||
+      !title ||
+      !description ||
+      !taskGroup ||
+      !taskStatus ||
+      !unit ||
+      !totalBudgetQty ||
+      !totalBudgetHrs ||
+      !totalLabourCost
+    ) {
+      return res.status(400).json({ error: "Missing required fields." });
+    }
+
     const updatedTask = {
       code,
       title,

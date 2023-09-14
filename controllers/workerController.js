@@ -80,9 +80,9 @@ async function store(req, res) {
         lastname: fields.lastname,
       });
       if (existingWorker) {
-        return res
-          .status(400)
-          .json({ error: "Worker with this firstname and/or lastname already exists." });
+        return res.status(400).json({
+          error: "Worker with this firstname and/or lastname already exists. Please verify.",
+        });
       }
 
       const ext = path.extname(files.avatar.filepath);
@@ -110,7 +110,7 @@ async function store(req, res) {
 
       try {
         await newWorker.save();
-        return res.status(201).json(newWorker);
+        return res.status(200).json(newWorker);
       } catch (saveError) {
         console.error(saveError);
         return res.status(500).json({ error: "Error saving the new worker." });
@@ -138,12 +138,6 @@ async function update(req, res) {
       if (!firstname || !lastname || !category || !files.avatar) {
         return res.status(400).json({ error: "Missing required fields." });
       }
-
-      // const existingWorker = await Worker.findOne({ firstname: firstname, lastname: lastname });
-
-      // // if (existingWorker) {
-      // //   return res.status(400).json({ error: "Worker with this email already exists." });
-      // // }
 
       const ext = path.extname(files.avatar.filepath);
       const newFileName = `image_${Date.now()}${ext}`;

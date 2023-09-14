@@ -9,7 +9,7 @@ async function index(req, res) {
 }
 
 async function token(req, res) {
-  const admin = await Admin.findOne({ username: req.body.username });
+  const admin = await Admin.findOne({ email: req.body.email });
 
   if (!admin) {
     return res.json({ error: "Credenciales inválidas" });
@@ -56,7 +56,6 @@ async function edit(req, res) {}
 
 // Update the specified resource in storage.
 async function update(req, res) {
-  console.log(req.auth);
   const { firstname, lastname, password, email, phone } = req.body;
 
   if (!firstname || !lastname || !password || !email || !phone) {

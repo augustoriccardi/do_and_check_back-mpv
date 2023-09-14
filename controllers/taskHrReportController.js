@@ -25,13 +25,22 @@ async function create(req, res) {}
 async function store(req, res) {
   try {
     const workersHrsReport = req.body;
+
     const taskHrReport = [];
 
     for (const workerHrsReport of workersHrsReport) {
+      if (
+        !workerHrsReport.date ||
+        !workerHrsReport.worker ||
+        !workerHrsReport.task ||
+        !workerHrsReport.hours
+      ) {
+        return res.status(400).json({ error: "Missing required fields." });
+      }
       taskHrReport.push({
         date: workerHrsReport.date,
-        worker: workerHrsReport.workerId,
-        task: workerHrsReport.taskId,
+        worker: workerHrsReport.worker,
+        task: workerHrsReport.task,
         hours: workerHrsReport.hours,
       });
     }
@@ -53,7 +62,15 @@ async function edit(req, res) {}
 async function update(req, res) {
   try {
     const workersHrsReport = req.body;
-
+    console.log(workersHrsReport);
+    if (
+      !workersHrsReport.date ||
+      !workersHrsReport.worker ||
+      !workersHrsReport.task ||
+      !workersHrsReport.hours
+    ) {
+      return res.status(400).json({ error: "Missing required fields." });
+    }
     await TaskHrReport.findByIdAndUpdate(req.params.id, workersHrsReport);
 
     // Envía una respuesta de éxito si todo salió bien
