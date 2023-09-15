@@ -42,7 +42,6 @@ async function store(req, res) {
   if (
     !code ||
     !title ||
-    !description ||
     !taskGroup ||
     !taskStatus ||
     !unit ||

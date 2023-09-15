@@ -25,6 +25,7 @@ async function create(req, res) {}
 async function store(req, res) {
   try {
     const workersHrsReport = req.body;
+    console.log(req.body);
 
     const taskHrReport = [];
 
