@@ -14,14 +14,12 @@ module.exports = async () => {
     for (const taskHrReport of taskHrReports) {
       const task = await Task.findById(taskHrReport.task);
 
-      const perfFluctuationCoef = Math.random() * (1.7 - 0.5) + 0.5;
+      // Calcular el valor mínimo y máximo para progressQty
+      const minValue = (taskHrReport.hours / task.budgetPerfRatio) * 0.9; // 60% del valor original
+      const maxValue = (taskHrReport.hours / task.budgetPerfRatio) * 1.3; // 140% del valor original
 
-      // Calcular el avance de tarea basado en budgetPerfRatio y taskHrReport.hours
-      const progressQty =
-        Math.floor(taskHrReport.hours / task.budgetPerfRatio / perfFluctuationCoef) + 1;
-
-      // // Guardar la tarea actualizada en la base de datos
-      // await task.save();
+      // Calcular un valor aleatorio dentro del rango
+      const progressQty = Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
 
       // Crear un nuevo informe de progreso basado en el avance
 

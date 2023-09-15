@@ -81,7 +81,7 @@ async function store(req, res) {
       });
       if (existingWorker) {
         return res.status(400).json({
-          error: "Worker with this firstname and/or lastname already exists. Please verify.",
+          error: "Worker with  firstname and/or lastname already exists. Please verify.",
         });
       }
 
