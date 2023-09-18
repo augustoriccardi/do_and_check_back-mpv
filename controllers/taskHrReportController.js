@@ -1,5 +1,4 @@
 const TaskHrReport = require("../models/TaskHrReport");
-const TaskQtyReport = require("../models/TaskQtyReport");
 
 // Display a listing of the resource.
 async function index(req, res) {
