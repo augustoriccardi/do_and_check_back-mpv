@@ -15,7 +15,6 @@ async function showContact(req, res) {
 }
 
 async function showAboutUs(req, res) {
-  hg;
   res.render("pages/aboutUs");
 }
 
