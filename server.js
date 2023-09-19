@@ -10,7 +10,7 @@ const app = express();
 
 app.use((req, res, next) => {
   // Configurar los encabezados CORS adecuados
-  res.setHeader("Access-Control-Allow-Origin", "https://do-and-check-front-mvp.vercel.app");
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
   res.setHeader(
     "Access-Control-Allow-Headers",
