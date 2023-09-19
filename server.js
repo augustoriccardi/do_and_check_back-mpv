@@ -8,16 +8,13 @@ const routes = require("./routes");
 const APP_PORT = process.env.APP_PORT || 3000;
 const app = express();
 
-app.use((req, res, next) => {
-  // Configurar los encabezados CORS adecuados
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization",
-  );
-  next();
-});
+const corsOptions = {
+  origin: "https://do-and-check-front-mvp.vercel.app", // Replace with your front-end URL
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
 
 app.use(methodOverride("_method"));
 app.use(express.static("public"));
