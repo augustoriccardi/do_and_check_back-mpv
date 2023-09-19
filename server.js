@@ -8,7 +8,16 @@ const routes = require("./routes");
 const APP_PORT = process.env.APP_PORT || 3000;
 const app = express();
 
-app.use(cors());
+app.use((req, res, next) => {
+  // Configurar los encabezados CORS adecuados
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+  );
+  next();
+});
 
 app.use(methodOverride("_method"));
 app.use(express.static("public"));

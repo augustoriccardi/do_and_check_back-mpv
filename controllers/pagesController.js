@@ -7,16 +7,12 @@ const TaskQtyReport = require("../models/TaskQtyReport");
 const runAllSeeders = require("../seeders/runAllSeeders");
 
 async function showHome(req, res) {
-  res.render("pages/home");
+  res.send("Estoy funcionando!");
 }
 
-async function showContact(req, res) {
-  res.render("pages/contact");
-}
+async function showContact(req, res) {}
 
-async function showAboutUs(req, res) {
-  res.render("pages/aboutUs");
-}
+async function showAboutUs(req, res) {}
 
 async function reset(req, res) {
   const collections = [
