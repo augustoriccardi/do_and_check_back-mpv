@@ -86,7 +86,7 @@ async function store(req, res) {
       }
 
       const ext = path.extname(files.avatar.filepath);
-      const newFileName = `image_${Date.now()}${ext}`;
+      const newFileName = `avatars/image_${Date.now()}${ext}`;
 
       const { data, error } = await supabase.storage
         .from("images")
@@ -140,7 +140,7 @@ async function update(req, res) {
       }
 
       const ext = path.extname(files.avatar.filepath);
-      const newFileName = `image_${Date.now()}${ext}`;
+      const newFileName = `avatars/image_${Date.now()}${ext}`;
 
       const { data, error } = await supabase.storage
         .from("images")

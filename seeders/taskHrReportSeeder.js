@@ -21,7 +21,7 @@ module.exports = async () => {
         const endDate = new Date();
 
         const newTaskHrReport = new TaskHrReport({
-          date: faker.date.between(startDate, endDate),
+          date: faker.date.between({ from: startDate, to: endDate }),
           worker: workers[Math.floor(Math.random() * workers.length)],
           task: task,
           hours: Math.floor(Math.random() * 8) + 1,
